@@ -57,7 +57,7 @@
           rows="4"
         ></textarea>
         <div class="add-form-row">
-          <button class="add-form-button">Написать</button>
+          <button id = "add-button" class="add-form-button">Написать</button>
         </div>
       </div>
     </div>
@@ -120,7 +120,12 @@
             </div>
           </div>
         </li>`;
-    });
+    
+        nameInputElement.value = "";
+        textInputElement.value = "";
+      });
+
+      
 
     console.log("It works!");
   </script>
