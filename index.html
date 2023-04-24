@@ -8,7 +8,7 @@
 
   <body>
     <div class="container">
-      <ul class="comments">
+      <ul id="list" class="comments">
         <li class="comment">
           <div class="comment-header">
             <div>Глеб Фокин</div>
@@ -22,7 +22,7 @@
           <div class="comment-footer">
             <div class="likes">
               <span class="likes-counter">3</span>
-              <button class="like-button"></button>
+              <button id="likes" class="like-button">addLike()</button>
             </div>
           </div>
         </li>
@@ -46,26 +46,82 @@
       </ul>
       <div class="add-form">
         <input
-          type="text"
+          id="name-input" type="text" value=""
           class="add-form-name"
           placeholder="Введите ваше имя"
         />
-        <textarea
-          type="textarea"
+        <textarea 
+          id="text-input" type="textarea" value=""
           class="add-form-text"
           placeholder="Введите ваш коментарий"
           rows="4"
         ></textarea>
         <div class="add-form-row">
-          <button class="add-form-button">Написать</button>
+          <button id="add-button" class="add-form-button">Написать</button>
         </div>
       </div>
     </div>
   </body>
+  <style>
+    .error {
+      background-color: red;
+    }
+  </style>
 
   <script>
-    "use strict";
-    // Код писать здесь
+
+    function displayDate() {
+      let date = new Date();  
+      let day = date.getDate();
+      let month = date.getMonth() + 1;
+      let year = date.getFullYear();
+  
+      let hours = date.getHours();
+      let minutes = date.getMinutes();
+        
+      return day + "." + month + "." + year + " " + hours + ":" + minutes;
+    };
+
+    const buttonElement = document.getElementById("add-button");
+    const listElement = document.getElementById("list");
+    const nameInputElement = document.getElementById("name-input");
+    const textInputElement = document.getElementById("text-input");
+
+    buttonElement.addEventListener("click", () => {
+      nameInputElement.classList.remove("error");
+      textInputElement.classList.remove("error");
+
+      if (nameInputElement.value === ""){
+        nameInputElement.classList.add("error");
+        return;
+      }    
+      
+      if (textInputElement.value === ""){
+        textInputElement.classList.add("error");
+        return;
+      }
+
+      const oldListHtml = listElement.innerHTML;
+      listElement.innerHTML = oldListHtml +
+       `<li class="comment">
+          <div class="comment-header">
+            <div> ${nameInputElement.value} </div>
+            <div> ${displayDate()} </div>
+          </div>
+          <div class="comment-body">
+            <div class="comment-text">
+              ${textInputElement.value}
+            </div>
+          </div>
+          <div class="comment-footer">
+            <div class="likes">
+              <span class="likes-counter">0</span>
+              <button class="like-button"></button>
+            </div>
+          </div>
+        </li>`;
+    });
+
     console.log("It works!");
   </script>
 </html>
